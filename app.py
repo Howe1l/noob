@@ -57,7 +57,7 @@ movies = [
 def index():
     user = User.query.first()
     movies = Movie.query.all()
-    return render_template('index.html', name=user, movies=movies)
+    return render_template('index.html', movies=movies)
 
 # ------创建数据库模型--------
 
@@ -116,3 +116,17 @@ def forge():
 
     db.session.commit()
     click.echo('Done.')
+
+# ----404错误处理函数----
+
+@app.errorhandler(404)  # 传入要处理的错误代码
+def page_not_found(e): # 接受异常对象作为参数
+    user = User.query.first()
+    return render_template('404.html'), 404 #返回模版和状态码
+
+# ----模版上下文处理函数----
+
+@app.context_processor
+def inject_user():  # 函数名可随意更改
+    user = User.query.first()
+    return dict(user=user)  # 需要返回字典，等同于return {'user': user}
