@@ -8,6 +8,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 
 
 
+
 WIN = sys.platform.startswith('win')
 if WIN:  # 如果是windows系统，使用三个斜线
     prefix = 'sqlite:///'
